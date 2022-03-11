@@ -10,9 +10,11 @@ def gensong():
     linenum = random.randint(0, len(open("songs.txt").readlines()) - 1)
     global song
     global artist
-    song = open("songs.txt").readlines(linenum)[0]
+    song = open("songs.txt").readlines()
+    song = song[linenum]
     song = song.strip()
-    artist = open("artists.txt").readlines(linenum)[0]
+    artist = open("artists.txt").readlines()
+    artist = artist[linenum]
     artist = artist.strip()
 
 def hintify(word):
