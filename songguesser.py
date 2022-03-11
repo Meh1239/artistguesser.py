@@ -8,8 +8,10 @@ guesses = 0
 with open('songs.txt') as songs:
     x = len(songs.readlines())
     linenum = random.randint(0, x)
+    songs.seek(0)
     song = songs.readline(linenum)
 with open('artists.txt') as artists:
+    artists.seek(0)
     artist = artists.readline(linenum)
 
 print(song)
