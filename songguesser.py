@@ -1,24 +1,30 @@
 import simple_chalk
 import random
 
-usernames = [test, test1]
-passwords = [test, test1]
+usernames = ["test", "test1"]
+passwords = ["test", "test1"]
 guesses = 0
-x = len(file.readlines() - 1)
+with open('songs.txt', 'r') as songs:
+    count = 0
+    for line in fp:
+        if line != "\n":
+            count += 1
+    linenum = random.randint(0, count - 1)
+    song = songs.readline(linenum)
 
-with open('song', 'r') as file:
-    song = file.readline(random.randint(0, x))
-with open('artists', 'r') as file:
-    artist = file.readline(random.randint(0, x))
+with open('artists.txt', 'r') as artists:
+    artist = artists.readline(linenum)
 
+print(linenum)
+print(song)
 songprint = song.split()
-for x in range(0, len(songprint)):
-    printsong = songprint[x]
+for y in range(0, len(songprint)):
+    printsong = songprint[y]
 username = input("Enter your username: ")
 password = input("Enter your password: ")
 
-for x in range(0,len(usernames)):
-    if username == usernames[x] and password == passwords[x]:
+for z in range(0,len(usernames)):
+    if username == usernames[z] and password == passwords[z]:
         while guesses <= 0 and guesses >= 1:
             print(artist)
             print()
