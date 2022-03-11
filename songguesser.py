@@ -1,4 +1,5 @@
 import random
+
 usernames = ["test", "test1"]
 passwords = ["test", "test1"]
 guesses = 0
@@ -10,7 +11,9 @@ def gensong():
     global song
     global artist
     song = open("songs.txt").readlines(linenum)[0]
+    song = song.strip()
     artist = open("artists.txt").readlines(linenum)[0]
+    artist = artist.strip()
 
 def hintify(word):
     songhint = ""
@@ -38,7 +41,7 @@ if username in usernames and password in passwords and passwords.index(password)
         print("The artist is", artist)
         print("Song hint", hintify(song))
         guess = input("Guess song name: ")
-        if guess == song:
+        if guess.strip() == song:
             guesses = 0
             gamecount += 1
             wincount += 1
