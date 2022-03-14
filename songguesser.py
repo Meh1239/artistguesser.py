@@ -1,7 +1,9 @@
 import random
 import datetime
-import json
 
+displaytwo = []
+displaythree = []
+displayfour = []
 points = 0
 usernames = ["test", "test1"]
 passwords = ["test", "test1"]
@@ -9,7 +11,30 @@ guesses = 0
 wincount = 0
 gamecount = 1   
 
-#Implement JSON file for leaderboard here https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/
+def leadsort():
+    leaderboard = open("leaderboard.txt", "r+")
+    display = leaderboard.readlines()
+    for i in range(1,len(display)):
+        displaytwo.append(display[i].strip())
+    print(displaytwo)
+    for i in range(0,len(displaytwo)):
+        displaythree.append(displaytwo[i].split(":"))
+    print(displaythree)
+    winslead = open("winslead.txt", "a+")
+    pointslead = open("pointslead", "a+")
+    for i in range(0,len(displaythree)):
+        if i > 0 and int(displaythree[i][1]) > int(displaythree[i - 1][1]):
+            displayfour.append(displaythree[i])
+            if i > 0 and int(displaythree[i][2]) > int(displaythree[i - 1][2]):
+                displayfive.append(displaythree[i])
+        elif i == 0:
+            displayfour.append(displaythree[i])
+        else:
+            displayfour.append(displaythree[i - 1])
+
+    
+
+leadsort()
 
 def gensong():
     linenum = random.randint(0, len(open("songs.txt").readlines()) - 1)
@@ -61,5 +86,7 @@ if username in usernames and password in passwords and passwords.index(password)
         else:
             guesses += 1
     print(f"You lost after {gamecount} game(s) with a total score of {points}")
+    leaderboard = open("leaderboard.txt", "a")
+    leaderboard.write(f"{playername}:{points}:{gamecount}:{wincount}\n")
 else:
     exit()
