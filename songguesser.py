@@ -1,10 +1,16 @@
 import random
+import datetime
+import json
 
+points = 0
 usernames = ["test", "test1"]
 passwords = ["test", "test1"]
 guesses = 0
 wincount = 0
 gamecount = 1   
+date = datetime.datetime.now().strftime("%H:%M/%d/%m/%Y")
+
+#Implement JSON file for leaderboard here https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/
 
 def gensong():
     linenum = random.randint(0, len(open("songs.txt").readlines()) - 1)
@@ -36,20 +42,25 @@ def hintify(word):
 username = input("Enter your username: ")
 password = input("Enter your password: ")
 if username in usernames and password in passwords and passwords.index(password) == usernames.index(username):
+    playername = input("Enter Player name:")
     gensong()
     while guesses >= 0 and guesses <= 1:
-        print("The artist is", artist)
-        print("Song hint", hintify(song))
+        print(f"The artist is {artist}")
+        print(f"Song hint {hintify(song)}")
         guess = input("Guess song name: ").strip().lower()
         if guess == song:
+            if guesses == 0:
+                points += 3
+            else:
+                points += 1
             guesses = 0
             gamecount += 1
             wincount += 1
-            print("You have won", wincount, "game(s)")
+            print(f"You have won {wincount} game(s) your current score is {points}")
             gensong()
             hintify(song)
         else:
             guesses += 1
-    print("You lost after", gamecount, "game(s)")
+    print(f"You lost after {gamecount} game(s) with a total score of {points}")
 else:
     exit()
