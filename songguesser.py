@@ -8,7 +8,6 @@ passwords = ["test", "test1"]
 guesses = 0
 wincount = 0
 gamecount = 1   
-date = datetime.datetime.now().strftime("%H:%M/%d/%m/%Y")
 
 #Implement JSON file for leaderboard here https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/
 
