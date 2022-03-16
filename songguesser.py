@@ -1,9 +1,6 @@
 import random
 import datetime
 
-displaytwo = []
-displaythree = []
-displayfour = []
 points = 0
 usernames = ["test", "test1"]
 passwords = ["test", "test1"]
@@ -11,29 +8,50 @@ guesses = 0
 wincount = 0
 gamecount = 1   
 
-def leadsort(): #needs to be sorted
-    leaderboard = open("leaderboard.txt", "r+")
-    display = leaderboard.readlines()
-    for i in range(1,len(display)):
-        displaytwo.append(display[i].strip())
-    for i in range(0,len(displaytwo)):
-        displaythree.append(displaytwo[i].split(":"))
+def leadsort():
+    holderarray2 = []
+    holderarray3 = []
+    scorelead = []
+    winlead = []
+    x = 1
+    leaderboard = open("leaderboard.txt", "r")
+    holderarray = leaderboard.readlines()
+    for i in range(1,len(holderarray)):
+        holderarray2.append(holderarray[i].strip())
+    for i in range(0,len(holderarray2)):
+        holderarray3.append(holderarray2[i].split(":"))
     winslead = open("winslead.txt", "a+")
-    pointslead = open("pointslead", "a+")
-    for i in range(0,len(displaythree)):
-        if i > 0 and int(displaythree[i][1]) > int(displaythree[i - 1][1]):
-            displayfour.insert(i - 1,displaythree[i])
-        elif i == 0:
-            displayfour.append(displaythree[i])
+    winslead.truncate(0)
+    winslead.seek(0)
+    winslead.write("Place:Playername:Score:Consecutive Wins\n")
+    pointslead = open("pointslead.txt", "a+")
+    pointslead.truncate(0)
+    pointslead.seek(0)
+    pointslead.write("Place:Playername:Score:Consecutive Wins\n")
+    for i in range(0,len(holderarray3)):
+        while i > 0 and int(holderarray3[i][1]) > int(holderarray3[i - x][1]):
+            x += 1
+        if i > 0 and x >= 2:
+            if holderarray3[i][1] > holderarray3[0][1] and holderarray3[i][1] > holderarray3[i - 1][1]:
+                scorelead.insert(0, holderarray3[i])
+            else:
+                scorelead.insert(i - x, holderarray3[i])
         else:
-            displayfour.append(displaythree[i])
-    for i in range(0,len(displaythree)):
-        if i > 0 and int(displaythree[i][2]) > int(displaythree[i - 1][2]):
-            displayfour.insert(i - 1,displaythree[i])
-        elif i == 0:
-            displayfour.append(displaythree[i])
+            scorelead.append(holderarray3[i])
+    for i in range(1,len(scorelead)):
+        pointslead.write(f"{i}:{scorelead[i][0]}:{scorelead[i][1]}:{scorelead[i][2]}\n")
+    for i in range(0,len(holderarray3)):
+        while i > 0 and int(holderarray3[i][1]) > int(holderarray3[i - x][1]):
+            x += 1
+        if i > 0 and x >= 2:
+            if holderarray3[i][1] > holderarray3[0][1] and holderarray3[i][1] > holderarray3[i - 1][1]:
+                winlead.insert(0, holderarray3[i])
+            else:
+                winlead.insert(i - x, holderarray3[i])
         else:
-            displayfour.append(displaythree[i])
+            winlead.append(holderarray3[i])
+    for i in range(1,len(winlead)):
+        winslead.write(f"{i}:{winlead[i][0]}:{winlead[i][1]}:{winlead[i][2]}\n")
 
 def gensong():
     linenum = random.randint(0, len(open("songs.txt").readlines()) - 1)
@@ -62,9 +80,30 @@ def hintify(word):
             count += 1
     return songhint
 
+leadsort()
 username = input("Enter your username: ")
 password = input("Enter your password: ")
 if username in usernames and password in passwords and passwords.index(password) == usernames.index(username):
+    seeleaderboard = input("""Do you wish to see the leadboard a for all leaderboards
+    s for score leaderboard
+    w for consecutive wins leaderboard
+    anything else to skip leaderboard
+    """)
+    if seeleaderboard.lower() == "a":
+        leaderboard = open("winslead.txt", "r")
+        print(leaderboard.readlines())
+        leaderboard.close()
+        leaderboard = open("pointslead.txt", "r")
+        print(leaderboard.readlines())
+        leaderboard.close()
+    elif seeleaderboard == "s":
+        leaderboard = open("pointslead.txt", "r")
+        print(leaderboard.readlines())
+        leaderboard.close()
+    elif seeleaderboard == "w": #ends with elif because ending with a empty else is useless
+        leaderboard = open("winslead.txt", "r")
+        print(leaderboard.readlines())
+        leaderboard.close()
     playername = input("Enter Player name:")
     gensong()
     while guesses >= 0 and guesses <= 1:
@@ -87,5 +126,6 @@ if username in usernames and password in passwords and passwords.index(password)
     print(f"You lost after {gamecount} game(s) with a total score of {points}")
     leaderboard = open("leaderboard.txt", "a")
     leaderboard.write(f"{playername}:{points}:{gamecount}:{wincount}\n")
+    leaderboard.close()
 else:
     exit()
