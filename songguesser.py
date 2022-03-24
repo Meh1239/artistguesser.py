@@ -81,11 +81,13 @@ def hintify(word):
     return songhint
 
 leadsort()
+#Login system
 username = input("""Enter your username
 >""")
 password = input("""Enter your password
 >""")
 if username in usernames and password in passwords and passwords.index(password) == usernames.index(username):
+#View leaderboard
     seeleaderboard = input("""Do you wish to see the leadboard
 a for all leaderboards
 s for score leaderboard
@@ -121,6 +123,7 @@ anything else to skip leaderboard
         leaderboard.close()
     playername = input("""Enter Player name
 >""")
+#Main game
     gensong()
     while guesses >= 0 and guesses <= 1:
         print(f"The artist is {artist}")
@@ -141,6 +144,7 @@ anything else to skip leaderboard
         else:
             guesses += 1
     print(f"You lost after {gamecount} game(s) with a total score of {points}")
+    #Write to leaderboard
     leaderboard = open("leaderboard.txt", "a")
     leaderboard.write(f"{playername}:{points}:{wincount}\n")
     leaderboard.close()
