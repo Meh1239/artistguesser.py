@@ -1,5 +1,7 @@
 import random
 #Variables
+inputchar = """
+>"""
 points = 0
 usernames = ["test", "test1"]
 passwords = ["test", "test1"]
@@ -82,18 +84,15 @@ def hintify(word):
 
 leadsort()
 #Login system
-username = input("""Enter your username
->""")
-password = input("""Enter your password
->""")
+username = input(f"""Enter your username{inputchar}""")
+password = input(f"""Enter your password{inputchar}""")
 if username in usernames and password in passwords and passwords.index(password) == usernames.index(username):
 #View leaderboard
     seeleaderboard = input("""Do you wish to see the leadboard
 a for all leaderboards
 s for score leaderboard
 w for consecutive wins leaderboard
-anything else to skip leaderboard
->""")
+anything else to skip leaderboard{inputchar}""")
     if seeleaderboard.lower() == "a":
         print("Wins leaderboard")
         leaderboard = open("winslead.txt", "r")
@@ -121,15 +120,13 @@ anything else to skip leaderboard
             leaderboard.seek(0)
             print(leaderboard.readlines()[i],end="")
         leaderboard.close()
-    playername = input("""Enter Player name
->""")
+    playername = input("""Enter Player name{inputchar}""")
 #Main game
     gensong()
     while guesses >= 0 and guesses <= 1:
         print(f"The artist is {artist}")
         print(f"Song hint {hintify(song)}")
-        guess = input("""Guess song name
->""").strip().lower()
+        guess = input("""Guess song name{inputchar}""").strip().lower()
         if guess == song.lower():
             if guesses == 0:
                 points += 3
