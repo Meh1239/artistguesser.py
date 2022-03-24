@@ -58,7 +58,7 @@ def gensong():
     global song
     global artist
     song = open("songs.txt").readlines()
-    song = song[linenum].strip().lower()
+    song = song[linenum].strip()
     artist = open("artists.txt").readlines()
     artist = artist[linenum].strip()
 
@@ -130,7 +130,7 @@ anything else to skip leaderboard
         print(f"Song hint {hintify(song)}")
         guess = input("""Guess song name
 >""").strip().lower()
-        if guess == song:
+        if guess == song.lower():
             if guesses == 0:
                 points += 3
             else:
