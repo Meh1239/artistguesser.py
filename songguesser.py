@@ -1,12 +1,12 @@
 import random
-
+#Variables
 points = 0
 usernames = ["test", "test1"]
 passwords = ["test", "test1"]
 guesses = 0
 wincount = 0
 gamecount = 1   
-
+#Functions
 def leadsort():
     holderarray2 = []
     holderarray3 = []
