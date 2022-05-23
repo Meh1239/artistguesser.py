@@ -88,7 +88,7 @@ username = input(f"""Enter your username{inputchar}""")
 password = input(f"""Enter your password{inputchar}""")
 if username in usernames and password in passwords and passwords.index(password) == usernames.index(username):
 #View leaderboard
-    seeleaderboard = input("""Do you wish to see the leadboard
+    seeleaderboard = input(f"""Do you wish to see the leadboard
 a for all leaderboards
 s for score leaderboard
 w for consecutive wins leaderboard
@@ -120,7 +120,7 @@ anything else to skip leaderboard{inputchar}""")
             leaderboard.seek(0)
             print(leaderboard.readlines()[i],end="")
         leaderboard.close()
-    playername = input("""Enter Player name{inputchar}""")
+    playername = input(f"""Enter Player name{inputchar}""")
 #Main game
     gensong()
     while guesses >= 0 and guesses <= 1:
