@@ -15,18 +15,18 @@ def leadsort():
     scorelead = []
     winlead = []
     x = 1
-    leaderboard = open("/leaderboard.txt", "r")
+    leaderboard = open("leaderboard.txt", "r")
     holderarray = leaderboard.readlines()
     leaderboard.seek(0)
     for i in range(1,len(holderarray)):
         holderarray2.append(holderarray[i].strip())
     for i in range(0,len(holderarray2)):
         holderarray3.append(holderarray2[i].split(":"))
-    winslead = open("/winslead.txt", "a+")
+    winslead = open("winslead.txt", "a+")
     winslead.truncate(0)
     winslead.seek(0)
     winslead.write("Place:Playername:Score:Consecutive Wins\n")
-    pointslead = open("/pointslead.txt", "a+")
+    pointslead = open("pointslead.txt", "a+")
     pointslead.truncate(0)
     pointslead.seek(0)
     pointslead.write("Place:Playername:Score:Consecutive Wins\n")
@@ -56,12 +56,12 @@ def leadsort():
         winslead.write(f"{i + 1}:{winlead[i][0]}:{winlead[i][1]}:{winlead[i][2]}\n")
 
 def gensong():
-    linenum = random.randint(0, len(open("/songs.txt").readlines()) - 1)
+    linenum = random.randint(0, len(open("songs.txt").readlines()) - 1)
     global song
     global artist
-    song = open("/songs.txt").readlines()
+    song = open("songs.txt").readlines()
     song = song[linenum].strip()
-    artist = open("/artists.txt").readlines()
+    artist = open("artists.txt").readlines()
     artist = artist[linenum].strip()
 
 def hintify(word):
@@ -95,28 +95,28 @@ w for consecutive wins leaderboard
 anything else to skip leaderboard{inputchar}""")
     if seeleaderboard.lower() == "a":
         print("Wins leaderboard")
-        leaderboard = open("/winslead.txt", "r")
-        for i in range(0,len(open("/winslead.txt").readlines())):
+        leaderboard = open("winslead.txt", "r")
+        for i in range(0,len(open("winslead.txt").readlines())):
             leaderboard.seek(0)
             print(leaderboard.readlines()[i],end="")
         leaderboard.close()
         print("Points leaderboard")
-        leaderboard = open("/pointslead.txt", "r")
-        for i in range(0,len(open("/pointslead.txt").readlines())):
+        leaderboard = open("pointslead.txt", "r")
+        for i in range(0,len(open("pointslead.txt").readlines())):
             leaderboard.seek(0)
             print(leaderboard.readlines()[i],end="")
         leaderboard.close()
     elif seeleaderboard == "s":
         print("Points leaderboard")
-        leaderboard = open("/pointslead.txt", "r")
-        for i in range(0,len(open("/pointslead.txt").readlines())):
+        leaderboard = open("pointslead.txt", "r")
+        for i in range(0,len(open("pointslead.txt").readlines())):
             leaderboard.seek(0)
             print(leaderboard.readlines()[i],end="")
         leaderboard.close()
     elif seeleaderboard == "w": #ends with elif because ending with a empty else is useless
         print("Wins leaderboard")
-        leaderboard = open("/winslead.txt", "r")
-        for i in range(0,len(open("/winslead.txt").readlines())):
+        leaderboard = open("winslead.txt", "r")
+        for i in range(0,len(open("winslead.txt").readlines())):
             leaderboard.seek(0)
             print(leaderboard.readlines()[i],end="")
         leaderboard.close()
@@ -142,7 +142,7 @@ anything else to skip leaderboard{inputchar}""")
             guesses += 1
     print(f"You lost after {gamecount} game(s) with a total score of {points}")
     #Write to leaderboard
-    leaderboard = open("/leaderboard.txt", "a")
+    leaderboard = open("leaderboard.txt", "a")
     leaderboard.write(f"{playername}:{points}:{wincount}\n")
     leaderboard.close()
 else:
