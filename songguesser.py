@@ -126,7 +126,7 @@ anything else to skip leaderboard{inputchar}""")
     while guesses >= 0 and guesses <= 1:
         print(f"The artist is {artist}")
         print(f"Song hint {hintify(song)}")
-        guess = input("""Guess song name{inputchar}""").strip().lower()
+        guess = input(f"""Guess song name{inputchar}""").strip().lower()
         if guess == song.lower():
             if guesses == 0:
                 points += 3
